@@ -43,7 +43,6 @@ final class TechnologyViewModel: GeneralViewModelProtocol {
         
     }
     
-    //TODO: Load Data
     private func loadData() {
         ApiManager.getNews(from: .technology) { [ weak self ] result in
             guard let self = self else { return }
