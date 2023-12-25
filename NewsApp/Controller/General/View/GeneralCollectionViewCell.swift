@@ -13,7 +13,7 @@ final class GeneralCollectionViewCell: UICollectionViewCell {
     //MARK: - GUI Variables
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
-         
+        
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         return view

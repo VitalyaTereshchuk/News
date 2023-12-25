@@ -61,7 +61,6 @@ final class GeneralViewModel: GeneralViewModelProtocol {
     }
     
     private func loadImage() {
-        //TODO: get imageData
         for (index, article) in articles.enumerated() {
             ApiManager.getImageData(url: article.imageUrl) { [ weak self ] result in
                 

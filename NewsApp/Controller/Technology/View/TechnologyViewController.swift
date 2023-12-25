@@ -56,14 +56,12 @@ class TechnologyViewController: UIViewController {
         }
         
         viewModel.reloadCell = { [ weak self ] row in
-            //self?.collectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
             row == 0 ?
             self?.collectionView.reloadItems(at: [IndexPath.init(row: row, section: 0)]) :
             self?.collectionView.reloadItems(at: [IndexPath.init(row: row - 1, section: 1)])
         }
         
         viewModel.showError = { error in
-            //TODO: show alert with error
             print(error)
         }
     }
@@ -95,13 +93,12 @@ extension TechnologyViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         section == 0 ? 1 : (viewModel.numberOfCells - 1)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //var cell: UICollectionViewCell?
         let article = viewModel.getArticle(for: indexPath.row)
+        
         if indexPath.section == 0 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell()}
             cell.set(article: article)

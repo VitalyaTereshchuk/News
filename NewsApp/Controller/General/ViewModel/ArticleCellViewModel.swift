@@ -13,7 +13,7 @@ struct ArticleCellViewModel {
     let date: String
     let imageUrl: String
     var imageData: Data?
-     
+    
     init(article: ArticleResponceObject) {
         title = article.title
         description = article.description ?? ""
