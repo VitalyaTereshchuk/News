@@ -56,7 +56,6 @@ class BusinessViewController: UIViewController {
         }
         
         viewModel.reloadCell = { [ weak self ] row in
-            //self?.collectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
             row == 0 ?
             self?.collectionView.reloadItems(at: [IndexPath.init(row: row, section: 0)]) :
             self?.collectionView.reloadItems(at: [IndexPath.init(row: row - 1, section: 1)])
@@ -67,7 +66,6 @@ class BusinessViewController: UIViewController {
             print(error)
         }
     }
-    
     
     //MARK: - Privat methods
     private func setupUI() {
@@ -100,8 +98,9 @@ extension BusinessViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //var cell: UICollectionViewCell?
+        
         let article = viewModel.getArticle(for: indexPath.row)
+        
         if indexPath.section == 0 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell()}
             cell.set(article: article)
@@ -115,26 +114,25 @@ extension BusinessViewController: UICollectionViewDataSource {
         }
     }
 }
-        //MARK: - UICollectionViewDelegate
-        extension BusinessViewController: UICollectionViewDelegate {
-            func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-                let article = viewModel.getArticle(for: indexPath.row )
-                navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
-            }
-        }
+//MARK: - UICollectionViewDelegate
+extension BusinessViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let article = viewModel.getArticle(for: indexPath.row )
+        navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
+    }
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
+extension BusinessViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = view.frame.width
+        let firstSectionItemSize = CGSize(width: width,
+                                          height: width )
+        let secondSectionItemSize = CGSize(width: width,
+                                           height: 100)
         
-        //MARK: - UICollectionViewDelegateFlowLayout
-        extension BusinessViewController : UICollectionViewDelegateFlowLayout {
-            func collectionView(_ collectionView: UICollectionView,
-                                layout collectionViewLayout: UICollectionViewLayout,
-                                sizeForItemAt indexPath: IndexPath) -> CGSize {
-                let width = view.frame.width
-                let firstSectionItemSize = CGSize(width: width,
-                                                  height: width )
-                let secondSectionItemSize = CGSize(width: width,
-                                                   height: 100)
-                
-                return indexPath.section == 0 ? firstSectionItemSize : secondSectionItemSize
-            }
-        }
-    
+        return indexPath.section == 0 ? firstSectionItemSize : secondSectionItemSize
+    }
+}
