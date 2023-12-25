@@ -40,7 +40,6 @@ class BusinessViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         setupUI()
-        
         self.setupViewModel()
     }
     
@@ -50,7 +49,7 @@ class BusinessViewController: UIViewController {
     
     //MARK: - Methods
     private func setupViewModel() {
-        
+    
         viewModel.reloadData = { [ weak self ] in
             self?.collectionView.reloadData()
         }
@@ -92,7 +91,6 @@ extension BusinessViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         section == 0 ? 1 : (viewModel.numberOfCells - 1)
     }
     
