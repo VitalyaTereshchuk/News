@@ -37,7 +37,6 @@ final class BusinessViewModel: GeneralViewModelProtocol {
     
     func getArticle(for row: Int) -> ArticleCellViewModel {
         return articles[row]
-        
     }
     
     init() {
