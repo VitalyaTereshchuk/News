@@ -14,18 +14,18 @@ final class ApiManager {
     private static let path = "everything"
     
     //MARK: - Create url path and make request
-   static func getNews(completion: @escaping (Result<[ArticleResponceObject], Error>) -> ()) {
-       let stringUrl = baseUrl + path + "?sources=abc-news-au&language=en" + "&apiKey=\(apiKey)"
-       
-       guard let url = URL(string: stringUrl) else { return }
-       
-       let session = URLSession.shared.dataTask(with: url) { data, _, error in
-           handleResponse(data: data,
-                          error: error,
-                          completion: completion)
-       }
-       
-       session.resume()
+    static func getNews(completion: @escaping (Result<[ArticleResponceObject], Error>) -> ()) {
+        let stringUrl = baseUrl + path + "?sources=abc-news-au&language=en" + "&apiKey=\(apiKey)"
+        
+        guard let url = URL(string: stringUrl) else { return }
+        
+        let session = URLSession.shared.dataTask(with: url) { data, _, error in
+            handleResponse(data: data,
+                           error: error,
+                           completion: completion)
+        }
+        
+        session.resume()
     }
     //MARK: - BusinessGetNews url
     static func businessGetNews(completion: @escaping (Result<[ArticleResponceObject], Error>) -> ()) {
@@ -40,7 +40,7 @@ final class ApiManager {
         }
         
         session.resume()
-     }
+    }
     //MARK: - TechnologyGetNews url
     static func technologyGetNews(completion: @escaping (Result<[ArticleResponceObject], Error>) -> ()) {
         let stringUrl = baseUrl + path + "?sources=the-verge&language=en" + "&apiKey=\(apiKey)"
@@ -54,7 +54,7 @@ final class ApiManager {
         }
         
         session.resume()
-     }
+    }
     
     static func getImageData(url: String, completion: @escaping (Result<Data, Error>) -> ()) {
         guard let url = URL(string: url) else { return }
@@ -80,10 +80,10 @@ final class ApiManager {
             completion(.failure(NetworkingError.networkingError(error)))
         } else if let data = data {
             do {
-                let model = try JSONDecoder().decode(NewsResponseObject.self, 
+                let model = try JSONDecoder().decode(NewsResponseObject.self,
                                                      from: data)
                 completion(.success(model.articles))
-            } 
+            }
             catch let decodeError{
                 completion(.failure(decodeError))
             }
