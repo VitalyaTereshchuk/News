@@ -46,7 +46,7 @@ final class GeneralViewModel: GeneralViewModelProtocol {
     
     //TODO: Load Data
     private func loadData() {
-        ApiManager.getNews { [ weak self ] result in
+        ApiManager.getNews(from: .general) { [ weak self ] result in
             guard let self = self else { return }
             switch result {
             case.success(let articles):
@@ -62,9 +62,6 @@ final class GeneralViewModel: GeneralViewModelProtocol {
     
     private func loadImage() {
         //TODO: get imageData
-        //        guard let url = URL(string: articles[row].imageUrl),
-        //              let data = try? Data(contentsOf: url) else { return }
-        
         for (index, article) in articles.enumerated() {
             ApiManager.getImageData(url: article.imageUrl) { [ weak self ] result in
                 

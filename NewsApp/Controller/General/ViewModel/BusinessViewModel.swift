@@ -35,18 +35,18 @@ final class BusinessViewModel: GeneralViewModelProtocol {
         }
     }
     
-    init() {
-        loadData()
-    }
-    
     func getArticle(for row: Int) -> ArticleCellViewModel {
         return articles[row]
         
     }
     
+    init() {
+        loadData()
+    }
+    
     //TODO: Load Data
     private func loadData() {
-        ApiManager.businessGetNews { [ weak self ] result in
+        ApiManager.getNews(from: .business) { [ weak self ] result in
             guard let self = self else { return }
             switch result {
             case.success(let articles):
@@ -61,10 +61,6 @@ final class BusinessViewModel: GeneralViewModelProtocol {
     }
     
     private func loadImage() {
-        //TODO: get imageData
-        //        guard let url = URL(string: articles[row].imageUrl),
-        //              let data = try? Data(contentsOf: url) else { return }
-        
         for (index, article) in articles.enumerated() {
             ApiManager.getImageData(url: article.imageUrl) { [ weak self ] result in
                 
@@ -96,7 +92,3 @@ final class BusinessViewModel: GeneralViewModelProtocol {
         ]
     }
 }
-
-
-
-
