@@ -70,7 +70,6 @@ class GeneralViewController: UIViewController {
         }
         
         viewModel.showError = { error in
-            //TODO: show alert with error
             print(error)
         }
     }
